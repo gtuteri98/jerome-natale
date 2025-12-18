@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buon Natale Martina! 🎄</title>
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #0b1020;
+      --card: #111827;
+      --accent: #f97316;
+      --accent-soft: rgba(249, 115, 22, 0.18);
+      --accent-2: #22c55e;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f2937, #020617 55%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: #fff;
+      font-size: 12px;
+      opacity: 0.7;
+      pointer-events: none;
+      animation: fall linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10px);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+
+    /* 8-bit dancers created with CSS only */
+    .side-dancers {
+      position: fixed;
+      top: 8%;
+      bottom: 6%;
+      left: 0;
+      right: 0;
+      pointer-events: none;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 6px;
+    }
+
+    .side-column {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      width: 80px;
+      max-width: 22vw;
+      image-rendering: pixelated;
+    }
+
+    .pixel-dancer {
+      position: relative;
+      width: 40px;
+      height: 60px;
+      transform-origin: center bottom;
+      animation: dance 0.6s infinite alternate ease-in-out;
+    }
+
+    .var-2 { animation-duration: 0.7s; animation-delay: 0.1s; }
+    .var-3 { animation-duration: 0.55s; animation-delay: 0.18s; }
+    .var-4 { animation-duration: 0.65s; animation-delay: 0.24s; }
+    .var-5 { animation-duration: 0.5s; animation-delay: 0.3s; }
+    .var-6 { animation-duration: 0.8s; animation-delay: 0.12s; }
+
+    .mirror { transform: scaleX(-1); }
+
+    /* head (dark brown stylized) */
+    .pixel-dancer .head {
+      position: absolute;
+      top: 0;
+      left: 10px;
+      width: 20px;
+      height: 18px;
+      background: #3b2716;
+      border-radius: 2px;
+      box-shadow: 0 0 0 3px #000000aa;
+    }
+
+    /* red swimsuit body */
+    .pixel-dancer .body {
+      position: absolute;
+      top: 18px;
+      left: 8px;
+      width: 24px;
+      height: 18px;
+      background: #dc2626; /* rosso costume */
+      box-shadow: 0 0 0 3px #000000aa;
+    }
+
+    .pixel-dancer .body::before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      right: 2px;
+      height: 4px;
+      background: #fee2e2; /* fascia chiara tipo bordo costume */
+    }
+
+    /* arms */
+    .pixel-dancer .arm {
+      position: absolute;
+      top: 20px;
+      width: 8px;
+      height: 16px;
+      background: #3b2716;
+      box-shadow: 0 0 0 3px #000000aa;
+    }
+
+    .pixel-dancer .arm.left {
+      left: 0;
+      transform-origin: top right;
+      animation: arm-left 0.6s infinite alternate ease-in-out;
+    }
+
+    .pixel-dancer .arm.right {
+      right: 0;
+      transform-origin: top left;
+      animation: arm-right 0.6s infinite alternate ease-in-out;
+    }
+
+    /* legs */
+    .pixel-dancer .leg {
+      position: absolute;
+      top: 36px;
+      width: 8px;
+      height: 18px;
+      background: #3b2716;
+      box-shadow: 0 0 0 3px #000000aa;
+    }
+
+    .pixel-dancer .leg.left {
+      left: 10px;
+      transform-origin: top center;
+      animation: leg-left 0.6s infinite alternate ease-in-out;
+    }
+
+    .pixel-dancer .leg.right {
+      right: 10px;
+      transform-origin: top center;
+      animation: leg-right 0.6s infinite alternate ease-in-out;
+    }
+
+    @keyframes dance {
+      0% { transform: translateY(0) rotate(-6deg); }
+      100% { transform: translateY(-4px) rotate(6deg); }
+    }
+
+    @keyframes arm-left {
+      0% { transform: rotate(25deg); }
+      100% { transform: rotate(-35deg); }
+    }
+
+    @keyframes arm-right {
+      0% { transform: rotate(-25deg); }
+      100% { transform: rotate(35deg); }
+    }
+
+    @keyframes leg-left {
+      0% { transform: rotate(-12deg); }
+      100% { transform: rotate(18deg); }
+    }
+
+    @keyframes leg-right {
+      0% { transform: rotate(12deg); }
+      100% { transform: rotate(-18deg); }
+    }
+
+    @media (max-width: 768px) {
+      .side-dancers {
+        display: none; /* su mobile teniamo la card centrale così si legge bene */
+      }
+    }
+
+    .page {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px 40px;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .page {
+        padding: 40px 24px 48px;
+      }
+    }
+
+    .title {
+      font-size: 2.1rem;
+      line-height: 1.1;
+      letter-spacing: -0.05em;
+      margin-bottom: 10px;
+    }
+
+    @media (min-width: 768px) {
+      .title {
+        font-size: 2.8rem;
+      }
+    }
+
+    .title span {
+      background: linear-gradient(135deg, #fbbf24, #f97316, #22c55e);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .subtitle strong {
+      color: #facc15;
+    }
+
+    .card {
+      background: radial-gradient(circle at top, #111827, #020617);
+      border-radius: 24px;
+      padding: 22px 18px 22px;
+      max-width: 420px;
+      width: 100%;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: 0 24px 80px rgba(15, 23, 42, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      .card {
+        padding: 26px 26px 26px;
+      }
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(248, 113, 113, 0.20), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(52, 211, 153, 0.18), transparent 52%),
+        radial-gradient(circle at 0% 100%, rgba(56, 189, 248, 0.16), transparent 55%);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .jerome-avatar-wrap {
+      display: inline-flex;
+      padding: 4px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0%, #f97316, #22c55e);
+      margin-bottom: 10px;
+    }
+
+    .jerome-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 3px solid #020617;
+      background: #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .jerome-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .jerome-name {
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin-top: 4px;
+      margin-bottom: 6px;
+    }
+
+    .jerome-text {
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .counter-box {
+      background: rgba(15, 23, 42, 0.92);
+      border-radius: 18px;
+      padding: 12px 14px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      margin-bottom: 14px;
+    }
+
+    .counter-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .counter-value {
+      font-size: 2.3rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin-bottom: 2px;
+      text-shadow: 0 0 20px rgba(250, 204, 21, 0.7);
+    }
+
+    .counter-unit {
+      font-size: 0.9rem;
+      color: #facc15;
+    }
+
+    .counter-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .cta {
+      margin-top: 12px;
+    }
+
+    .cta button {
+      border-radius: 999px;
+      border: none;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(135deg, #f97316, #facc15);
+      color: #111827;
+      box-shadow: 0 16px 40px rgba(251, 191, 36, 0.55);
+      transform-origin: center;
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
+    }
+
+    .cta button:hover {
+      transform: translateY(-1px) scale(1.03);
+      box-shadow: 0 20px 60px rgba(251, 191, 36, 0.7);
+    }
+
+    .cta button:active {
+      transform: translateY(0) scale(0.98);
+      box-shadow: 0 10px 30px rgba(251, 191, 36, 0.6);
+    }
+
+    .cta-message {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .gif-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    @media (min-width: 480px) {
+      .gif-row {
+        gap: 10px;
+      }
+    }
+
+    .gif-box {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: var(--bg-soft);
+      position: relative;
+    }
+
+    .gif-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gif-badge {
+      position: absolute;
+      left: 8px;
+      bottom: 8px;
+      font-size: 0.7rem;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: #e5e7eb;
+    }
+
+    .bottom-note {
+      margin-top: 18px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 26px;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <!-- 20 pixel dancers (10 per lato) -->
+  <div class="side-dancers">
+    <div class="side-column">
+      <div class="pixel-dancer var-2">
+        <div class="head"></div><div class="body"></div>
+        <div class="arm left"></div><div class="arm right"></div>
+        <div class="leg left"></div><div class="leg right"></div>
+      </div>
+      <div class="pixel-dancer var-3">
+        <div class="head"></div><div class="body"></div>
+        <div class="arm left"></div><div class="arm right"></div>
+        <div class="leg left"></div><div class="leg right"></div>
+      </div>
+      <div class="pixel-dancer var-4">
+        <div class="head"></div><div class="body"></div>
+        <div class="arm left"></div><div class="arm right"></div>
+        <div class="leg left"></div><div class="leg right"></div>
+      </div>
+      <div class="pixel-dancer var-5">
+        <div class="head"></div><div class="body"></div>
+        <div class="arm left"></div><div class="arm right"></div>
+        <div class="leg left"></div><div class="leg right"></div>
+      </div>
+      <div class="pixel-dancer var-6">
+        <div class="head"></div><div class="body"></div>
+        <div class="arm left"></div><div class="arm right"></div>
+        <div class="leg left"></div><div class="leg right"></div>
+      </div>
+      <div class="pixel-dancer">
+        <div class="head"></div><div class="body"></div>
+        <div class="arm left"></div><div class="arm right"></div>
+        <div class="leg left"></div><div class="leg right"></div>
+      </div>
+      <div class="pixel-dancer var-3">
+        <div class="head"></div><div class="body"></div>
+        <div class="arm left"></div><div class="arm right"></div>
+        <div class="leg left"></div><div class="leg right"></div>
+      </div>
+      <div class="pixel-dancer var-4">
+        <div class="head"></div><div class="body"></div>
+        <div class="arm left"></div><div class="arm right"></div>
+        <div class="leg left"></div><div class="leg right"></div>
+      </div>
+      <div class="pixel-dancer var-5">
+        <div class="head"></div><div class="body"></div>
+        <div class="arm left"></div><div class="arm right"></div>
+        <div class="leg left"></div><div class="leg right"></div>
+      </div>
+      <div class="pixel-dancer var-2">
+        <div class="head"></div><div class="body"></div>
+        <div class="arm left"></div><div class="arm right"></div>
+        <div class="leg left"></div><div class="leg right"></div>
+      </div>
+    </div>
+    <div class="side-column">
+      <div class="pixel-dancer mirror var-3">
+        <div class="head"></div><div class="body"></div>
+        <div class="arm left"></div><div class="arm right"></div>
+        <div class="leg left"></div><div class="leg right"></div>
+      </div>
+      <div class="pixel-dancer mirror var-4">
+        <div class="head"></div><div class="body"></div>
+        <div class="arm left"></div><div class="arm right"></div>
+        <div class="leg left"></div><div class="leg right"></div>
+      </div>
+      <div class="pixel-dancer mirror var-5">
+        <div class="head"></div><div class="body"></div>
+        <div class="arm left"></div><div class="arm right"></div>
+        <div class="leg left"></div><div class="leg right"></div>
+      </div>
+      <div class="pixel-dancer mirror var-6">
+        <div class="head"></div><div class="body"></div>
+        <div class="arm left"></div><div class="arm right"></div>
+        <div class="leg left"></div><div class="leg right"></div>
+      </div>
+      <div class="pixel-dancer mirror var-2">
+        <div class="head"></div><div class="body"></div>
+        <div class="arm left"></div><div class="arm right"></div>
+        <div class="leg left"></div><div class="leg right"></div>
+      </div>
+      <div class="pixel-dancer mirror">
+        <div class="head"></div><div class="body"></div>
+        <div class="arm left"></div><div class="arm right"></div>
+        <div class="leg left"></div><div class="leg right"></div>
+      </div>
+      <div class="pixel-dancer mirror var-3">
+        <div class="head"></div><div class="body"></div>
+        <div class="arm left"></div><div class="arm right"></div>
+        <div class="leg left"></div><div class="leg right"></div>
+      </div>
+      <div class="pixel-dancer mirror var-4">
+        <div class="head"></div><div class="body"></div>
+        <div class="arm left"></div><div class="arm right"></div>
+        <div class="leg left"></div><div class="leg right"></div>
+      </div>
+      <div class="pixel-dancer mirror var-5">
+        <div class="head"></div><div class="body"></div>
+        <div class="arm left"></div><div class="arm right"></div>
+        <div class="leg left"></div><div class="leg right"></div>
+      </div>
+      <div class="pixel-dancer mirror var-2">
+        <div class="head"></div><div class="body"></div>
+        <div class="arm left"></div><div class="arm right"></div>
+        <div class="leg left"></div><div class="leg right"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- simple falling snowflakes -->
+  <div id="snow-container"></div>
+
+  <main class="page">
+    <h1 class="title">
+      Buon Natale <span>Martina</span>! 🎄
+    </h1>
+    <p class="subtitle">
+      <strong>Jerome</strong> ti aspetta con un sorriso gigante, danze pixelate, lucine e un mare di auguri. ✨
+    </p>
+
+    <section class="card">
+      <div class="card-inner">
+        <div class="jerome-avatar-wrap">
+          <div class="jerome-avatar">
+            <!-- Sostituisci "jerome.jpg" con la foto reale di Jerome -->
+            <img src="jerome_pixelated.jpg" alt="Jerome che sorride" />
+          </div>
+        </div>
+
+        <div class="jerome-name">Jerome</div>
+        <p class="jerome-text">
+          Questo è il piccolo Jerome, direttamente collegato al tuo cuore di zia adottiva ufficiale. 💚
+        </p>
+
+        <div class="counter-box">
+          <div class="counter-label">Pasti regalati a Jerome</div>
+          <div id="counter" class="counter-value">0</div>
+          <div class="counter-unit">pasti pieni di amore</div>
+          <div class="counter-note">
+            (Ogni clic fa ballare qualcuno in più sotto l'albero 🎶)
+          </div>
+        </div>
+
+        <div class="cta">
+          <button id="boostButton">Aggiungi un sorriso a Jerome</button>
+          <p class="cta-message">
+            Clicca sul tasto e guarda i pasti aumentare fino a <strong>50</strong>… e oltre, nel nostro cuore. 🎁
+          </p>
+        </div>
+
+        <div class="gif-row">
+          <!-- Sostituisci gli src con GIF di balli festosi se vuoi -->
+          <div class="gif-box">
+            <img src="gif1.gif" alt="Ballo festoso 1" />
+            <span class="gif-badge">Dance party 🎉</span>
+          </div>
+          <div class="gif-box">
+            <img src="gif2.gif" alt="Ballo festoso 2" />
+            <span class="gif-badge">More vibes 💃</span>
+          </div>
+          <div class="gif-box">
+            <img src="gif3.gif" alt="Ballo festoso 3" />
+            <span class="gif-badge">Joy & drums 🪘</span>
+          </div>
+          <div class="gif-box">
+            <img src="gif4.gif" alt="Ballo festoso 4" />
+            <span class="gif-badge">Holiday mood ✨</span>
+          </div>
+        </div>
+
+        <p class="bottom-note">
+          Questa pagina è solo per te: quando la guardi, Jerome ride un po' di più
+          (statistica scientificamente provata da noi). 😄
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      Fatto con tanto affetto per Martina · Natale 2025 🎅
+    </footer>
+  </main>
+
+  <script>
+    // Falling snow
+    const snowContainer = document.getElementById("snow-container");
+    const snowflakesCount = 60;
+
+    for (let i = 0; i < snowflakesCount; i++) {
+      const snowflake = document.createElement("div");
+      snowflake.className = "snowflake";
+      snowflake.textContent = "❄";
+      snowflake.style.left = Math.random() * 100 + "vw";
+      snowflake.style.animationDuration = 6 + Math.random() * 6 + "s";
+      snowflake.style.animationDelay = Math.random() * 5 + "s";
+      snowflake.style.fontSize = 10 + Math.random() * 10 + "px";
+      snowContainer.appendChild(snowflake);
+    }
+
+    // Counter logic
+    const counterEl = document.getElementById("counter");
+    const boostButton = document.getElementById("boostButton");
+
+    let currentCount = 0;
+    let targetCount = 50;
+    let animating = false;
+
+    function animateToTarget(target) {
+      if (animating) return;
+      animating = true;
+      const step = target > currentCount ? 1 : -1;
+      const interval = setInterval(() => {
+        currentCount += step;
+        counterEl.textContent = currentCount;
+        if (currentCount === target) {
+          clearInterval(interval);
+          animating = false;
+        }
+      }, 70);
+    }
+
+    // initial animation to 50
+    window.addEventListener("load", () => {
+      animateToTarget(targetCount);
+    });
+
+    // on button click, add a random number of meals (just for fun)
+    boostButton.addEventListener("click", () => {
+      const extra = Math.floor(Math.random() * 5) + 1; // 1–5 pasti
+      targetCount += extra;
+      animateToTarget(targetCount);
+    });
+  </script>
+</body>
+</html>
