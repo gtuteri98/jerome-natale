@@ -6,18 +6,32 @@
   <title>Buon Natale Martina! 🎄</title>
 
   <style>
-    body {
-      font-family: sans-serif;
-      background: radial-gradient(circle at top, #1f2937, #020617 60%, #000);
-      color: white;
+    :root {
+      --bg: #050816;
+      --card: #111827;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --accent: #f97316;
+      --accent2: #facc15;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f2937, #020617 60%, #000);
+      color: var(--text);
+      min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* MUSIC */
     audio { display: none; }
 
-    /* SNOW */
+    /* neve */
     .snowflake {
       position: fixed;
       top: -10px;
@@ -33,241 +47,364 @@
       100% { transform: translateY(110vh); }
     }
 
-    /* DANCERS */
+    /* ballerini 8-bit */
     .side-dancers {
       position: fixed;
-      top: 20%;
+      top: 10%;
+      bottom: 8%;
       left: 0;
       right: 0;
-      display: flex;
-      justify-content: space-between;
-      padding: 0 15vw; /* più vicini al centro */
       pointer-events: none;
       z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 clamp(4vw, 10vw, 14vw); /* più vicini al centro, visibili anche su tel */
       image-rendering: pixelated;
     }
 
-    @media (max-width:900px){
-      .side-dancers{
-        padding:0 2vw;
-      }
+    .side-column {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .pixel-dancer {
+      position: relative;
       width: 40px;
       height: 60px;
-      animation: dance .6s infinite alternate ease-in-out;
       transform-origin: center bottom;
-      position: relative;
+      animation: dance 0.6s infinite alternate ease-in-out;
+      margin: 4px 0;
     }
 
-    .pixel-dancer .head{
-      width:18px;height:18px;
-      background:#3b2716;
-      position:absolute;
-      top:0;left:11px;
+    .var-2 { animation-duration: 0.7s; animation-delay: 0.08s; }
+    .var-3 { animation-duration: 0.55s; animation-delay: 0.14s; }
+    .var-4 { animation-duration: 0.65s; animation-delay: 0.2s; }
+    .var-5 { animation-duration: 0.5s; animation-delay: 0.26s; }
+    .var-6 { animation-duration: 0.8s; animation-delay: 0.32s; }
+
+    .mirror { transform: scaleX(-1); }
+
+    .pixel-dancer .head {
+      position: absolute;
+      top: 0;
+      left: 10px;
+      width: 20px;
+      height: 18px;
+      background: #3b2716;
     }
 
-    .pixel-dancer .body{
-      width:24px;height:18px;
-      background:#dc2626;
-      position:absolute;
-      top:18px;left:8px;
+    .pixel-dancer .body {
+      position: absolute;
+      top: 18px;
+      left: 8px;
+      width: 24px;
+      height: 18px;
+      background: #dc2626; /* costume rosso */
     }
 
-    .pixel-dancer .leg{
-      width:8px;height:18px;background:#3b2716;
-      position:absolute;top:36px;
+    .pixel-dancer .leg {
+      position: absolute;
+      top: 36px;
+      width: 8px;
+      height: 18px;
+      background: #3b2716;
     }
-    .leg.left{left:10px;}
-    .leg.right{right:10px;}
+    .pixel-dancer .leg.left { left: 10px; }
+    .pixel-dancer .leg.right { right: 10px; }
 
     @keyframes dance {
-      0%{transform:translateY(0) rotate(-6deg);}
-      100%{transform:translateY(-4px) rotate(6deg);}
+      0% { transform: translateY(0) rotate(-6deg); }
+      100% { transform: translateY(-4px) rotate(6deg); }
     }
 
+    /* layout centrale */
     .page {
       position: relative;
       z-index: 3;
       text-align: center;
-      padding: 30px 10px;
-      max-width:500px;
-      margin:auto;
+      padding: 30px 12px 40px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .title {
+      font-size: 2.3rem;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .title span {
+      color: var(--accent2);
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 10px;
     }
 
     .card {
-      margin-top:15px;
-      background:#00000077;
-      padding:20px;
-      border-radius:20px;
-      border:1px solid #ffffff33;
+      margin-top: 12px;
+      background: #020617dd;
+      padding: 20px 18px 22px;
+      border-radius: 20px;
+      border: 1px solid #ffffff33;
+      box-shadow: 0 20px 60px #000000c0;
     }
 
-    .jerome-avatar {
-      width:140px;
-      height:140px;
-      border-radius:999px;
-      overflow:hidden;
-      margin:auto;
-      border:3px solid black;
+    .jerome-photo {
+      margin-bottom: 10px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid #020617;
     }
 
-    .gif-row {
-      margin-top: 20px;
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
+    .jerome-photo img {
+      display: block;
+      width: 100%;
+      height: auto;         /* qui la foto resta intera */
     }
 
-    .gif-box img {
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      border-radius:14px;
-      border:1px solid #ffffff33;
+    .jerome-name {
+      font-weight: 600;
+      margin-bottom: 4px;
     }
 
-    /* POPUP */
-    #popupBG{
-      display:none;
-      position:fixed;
-      top:0;left:0;right:0;bottom:0;
-      background:#000a;
-      justify-content:center;
-      align-items:center;
-      z-index:1000;
+    .jerome-text {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 8px;
     }
 
-    #popupBox{
-      background:white;
-      padding:10px;
-      border-radius:12px;
-      max-width:90vw;
-      max-height:90vh;
-      position:relative;
+    .jerome-text-2 {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 10px;
     }
 
-    #popupBox img{
-      max-width:90vw;
-      max-height:80vh;
+    .jerome-text-3 {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 10px;
     }
 
-    #closePopup{
-      position:absolute;
-      top:3px;
-      right:6px;
-      font-size:28px;
-      font-weight:bold;
-      cursor:pointer;
-      color:black;
+    .meals-number {
+      margin-top: 12px;
+      font-size: 3rem;
+      color: var(--accent2);
+    }
+
+    .meals-label {
+      margin-top: -8px;
+      font-size: 0.9rem;
+      color: #e5e7eb;
+      margin-bottom: 18px;
     }
 
     .btn {
-      margin-top:18px;
-      padding:12px 20px;
-      border-radius:999px;
-      border:none;
-      font-weight:bold;
-      cursor:pointer;
-      background:linear-gradient(135deg, #f97316, #facc15);
-      color:black;
+      margin-top: 4px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(135deg, #f97316, #facc15);
+      color: #111827;
+      box-shadow: 0 12px 30px rgba(250, 204, 21, 0.65);
+    }
+
+    .btn:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 8px 20px rgba(250, 204, 21, 0.5);
+    }
+
+    .gif-row {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .gif-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid #ffffff33;
+      display: block;
+    }
+
+    footer {
+      margin-top: 18px;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* popup donazione */
+    #popupBG {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #000000bb;
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+    }
+
+    #popupBox {
+      position: relative;
+      background: #ffffff;
+      border-radius: 14px;
+      max-width: 95vw;
+      max-height: 90vh;
+      padding: 8px;
+      box-shadow: 0 20px 60px #000000e0;
+    }
+
+    #popupBox img {
+      max-width: 92vw;
+      max-height: 80vh;
+      display: block;
+    }
+
+    #closePopup {
+      position: absolute;
+      top: 4px;
+      right: 8px;
+      font-size: 26px;
+      font-weight: bold;
+      color: #111827;
+      cursor: pointer;
+      line-height: 1;
     }
   </style>
 </head>
 
 <body>
+  <!-- musica -->
+  <audio id="bgmusic" src="jingle.mp3" autoplay loop></audio>
 
-<audio id="bgmusic" src="jingle.mp3" autoplay loop></audio>
+  <!-- neve -->
+  <div id="snow"></div>
 
-<div id="snow"></div>
-
-<div class="side-dancers">
-  <div class="pixel-dancer">
-    <div class="head"></div><div class="body"></div>
-    <div class="leg left"></div><div class="leg right"></div>
-  </div>
-
-  <div class="pixel-dancer">
-    <div class="head"></div><div class="body"></div>
-    <div class="leg left"></div><div class="leg right"></div>
-  </div>
-</div>
-
-<div class="page">
-
-  <h1 style="font-size:2.4rem;margin-bottom:16px;">
-    Buon Natale <span style="color:#facc15;">Martina</span>! 🎄
-  </h1>
-
-  <div class="card">
-
-    <div class="jerome-avatar">
-      <img src="jerome_pixelated.jpg">
+  <!-- tantissimi ballerini 8-bit -->
+  <div class="side-dancers">
+    <div class="side-column">
+      <div class="pixel-dancer var-2"><div class="head"></div><div class="body"></div><div class="leg left"></div><div class="leg right"></div></div>
+      <div class="pixel-dancer var-3"><div class="head"></div><div class="body"></div><div class="leg left"></div><div class="leg right"></div></div>
+      <div class="pixel-dancer var-4"><div class="head"></div><div class="body"></div><div class="leg left"></div><div class="leg right"></div></div>
+      <div class="pixel-dancer var-5"><div class="head"></div><div class="body"></div><div class="leg left"></div><div class="leg right"></div></div>
+      <div class="pixel-dancer var-6"><div class="head"></div><div class="body"></div><div class="leg left"></div><div class="leg right"></div></div>
+      <div class="pixel-dancer"><div class="head"></div><div class="body"></div><div class="leg left"></div><div class="leg right"></div></div>
+      <div class="pixel-dancer var-3"><div class="head"></div><div class="body"></div><div class="leg left"></div><div class="leg right"></div></div>
+      <div class="pixel-dancer var-4"><div class="head"></div><div class="body"></div><div class="leg left"></div><div class="leg right"></div></div>
+      <div class="pixel-dancer var-5"><div class="head"></div><div class="body"></div><div class="leg left"></div><div class="leg right"></div></div>
+      <div class="pixel-dancer var-2"><div class="head"></div><div class="body"></div><div class="leg left"></div><div class="leg right"></div></div>
     </div>
 
-    <h3 style="margin:12px 0 -4px 0;">Jerome</h3>
-
-    <p style="font-size:0.9rem;color:#ddd;">
-      questo è il piccolo Jerome, la nostra adozione a distanza 💚
-    </p>
-
-    <h1 style="margin-top:12px;font-size:3rem;color:#facc15;">50</h1>
-    <p style="margin-top:-10px;margin-bottom:18px;font-size:0.9rem;color:#aaa;">
-      pasti donati 🎁
-    </p>
-
-    <button class="btn" onclick="openPopup()">
-      Verifica la donazione fatta a Jerome
-    </button>
-
-    <div class="gif-row">
-      <div class="gif-box"><img src="gif1.gif"></div>
-      <div class="gif-box"><img src="gif2.gif"></div>
+    <div class="side-column">
+      <div class="pixel-dancer mirror var-3"><div class="head"></div><div class="body"></div><div class="leg left"></div><div class="leg right"></div></div>
+      <div class="pixel-dancer mirror var-4"><div class="head"></div><div class="body"></div><div class="leg left"></div><div class="leg right"></div></div>
+      <div class="pixel-dancer mirror var-5"><div class="head"></div><div class="body"></div><div class="leg left"></div><div class="leg right"></div></div>
+      <div class="pixel-dancer mirror var-6"><div class="head"></div><div class="body"></div><div class="leg left"></div><div class="leg right"></div></div>
+      <div class="pixel-dancer mirror var-2"><div class="head"></div><div class="body"></div><div class="leg left"></div><div class="leg right"></div></div>
+      <div class="pixel-dancer mirror"><div class="head"></div><div class="body"></div><div class="leg left"></div><div class="leg right"></div></div>
+      <div class="pixel-dancer mirror var-3"><div class="head"></div><div class="body"></div><div class="leg left"></div><div class="leg right"></div></div>
+      <div class="pixel-dancer mirror var-4"><div class="head"></div><div class="body"></div><div class="leg left"></div><div class="leg right"></div></div>
+      <div class="pixel-dancer mirror var-5"><div class="head"></div><div class="body"></div><div class="leg left"></div><div class="leg right"></div></div>
+      <div class="pixel-dancer mirror var-2"><div class="head"></div><div class="body"></div><div class="leg left"></div><div class="leg right"></div></div>
     </div>
-
   </div>
-</div>
 
-<!-- POPUP -->
-<div id="popupBG">
-  <div id="popupBox">
-    <div id="closePopup" onclick="closePopup()">×</div>
-    <img src="donazione.jpg">
+  <main class="page">
+    <h1 class="title">
+      Buon Natale <span>Martina</span>! 🎄
+    </h1>
+    <p class="subtitle">
+      <strong>Jerome</strong> ti aspetta con un sorriso gigante, danze pixelate, lucine e un mare di auguri. ✨
+    </p>
+
+    <section class="card">
+      <div class="jerome-photo">
+        <img src="jerome_pixelated.jpg" alt="Jerome che sorride">
+      </div>
+
+      <div class="jerome-name">Jerome</div>
+      <p class="jerome-text">
+        Questo è il piccolo Jerome, direttamente collegato al tuo cuore di zia adottiva ufficiale. 💚
+      </p>
+
+      <h2 class="meals-number">50</h2>
+      <p class="meals-label">pasti donati a Jerome 🎁</p>
+
+      <button class="btn" onclick="openPopup()">
+        Verifica la donazione fatta a Jerome
+      </button>
+
+      <p class="jerome-text-3">
+        Questa pagina è solo per te: quando la guardi, Jerome ride un po' di più
+        (statistica scientificamente provata da noi). 😄
+      </p>
+
+      <div class="gif-row">
+        <div class="gif-box"><img src="gif1.gif" alt="Ballo festoso 1"></div>
+        <div class="gif-box"><img src="gif2.gif" alt="Ballo festoso 2"></div>
+      </div>
+    </section>
+
+    <footer>
+      Fatto con tanto affetto per Martina · Natale 2025 🎅
+    </footer>
+  </main>
+
+  <!-- POPUP DONAZIONE -->
+  <div id="popupBG">
+    <div id="popupBox">
+      <div id="closePopup" onclick="closePopup()">×</div>
+      <img src="donazione.jpg" alt="Conferma donazione a Jerome">
+    </div>
   </div>
-</div>
 
-<script>
+  <script>
+    // neve
+    const snowContainer = document.getElementById("snow");
+    const snowflakesCount = 60;
+    for (let i = 0; i < snowflakesCount; i++) {
+      const snowflake = document.createElement("div");
+      snowflake.className = "snowflake";
+      snowflake.textContent = "❄";
+      snowflake.style.left = Math.random() * 100 + "vw";
+      snowflake.style.animationDuration = 6 + Math.random() * 6 + "s";
+      snowflake.style.animationDelay = Math.random() * 5 + "s";
+      snowflake.style.fontSize = 10 + Math.random() * 10 + "px";
+      snowContainer.appendChild(snowflake);
+    }
 
-let bg = document.getElementById("snow");
-for(let i=0;i<60;i++){
-  let s=document.createElement("div");
-  s.innerHTML="❄";
-  s.className="snowflake";
-  s.style.left=Math.random()*100+"vw";
-  s.style.animationDuration=(6+Math.random()*6)+"s";
-  s.style.animationDelay=Math.random()*5+"s";
-  s.style.fontSize=(10+Math.random()*10)+"px";
-  bg.appendChild(s);
-}
+    // popup
+    function openPopup() {
+      document.getElementById("popupBG").style.display = "flex";
+    }
+    function closePopup() {
+      document.getElementById("popupBG").style.display = "none";
+    }
 
-function openPopup(){
-  document.getElementById("popupBG").style.display="flex";
-}
-
-function closePopup(){
-  document.getElementById("popupBG").style.display="none";
-}
-
-// autoplay fallback
-window.addEventListener('load',function(){
-  const m=document.getElementById('bgmusic');
-  const p=m.play();
-  if(p!==undefined)p.catch(()=>{
-    document.addEventListener('click',()=>{m.play();},{once:true});
-  });
-});
-</script>
-
+    // musica: prova autoplay, se bloccato parte al primo click
+    window.addEventListener('load', function () {
+      const m = document.getElementById('bgmusic');
+      if (!m) return;
+      const p = m.play();
+      if (p !== undefined) {
+        p.catch(() => {
+          document.addEventListener('click', function once() {
+            m.play().catch(()=>{});
+            document.removeEventListener('click', once);
+          });
+        });
+      }
+    });
+  </script>
 </body>
 </html>
