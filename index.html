@@ -442,6 +442,9 @@
   </style>
 </head>
 <body>
+  <!-- Audio di Jingle (file jingle.mp3 nella stessa cartella) -->
+  <audio id="bgmusic" src="jingle.mp3" autoplay loop></audio>
+
   <!-- 20 pixel dancers (10 per lato) -->
   <div class="side-dancers">
     <div class="side-column">
@@ -565,7 +568,7 @@
       <div class="card-inner">
         <div class="jerome-avatar-wrap">
           <div class="jerome-avatar">
-            <!-- Sostituisci "jerome.jpg" con la foto reale di Jerome -->
+            <!-- Foto di Jerome pixelata -->
             <img src="jerome_pixelated.jpg" alt="Jerome che sorride" />
           </div>
         </div>
@@ -592,7 +595,7 @@
         </div>
 
         <div class="gif-row">
-          <!-- Sostituisci gli src con GIF di balli festosi se vuoi -->
+          <!-- opzionali: gif festive -->
           <div class="gif-box">
             <img src="gif1.gif" alt="Ballo festoso 1" />
             <span class="gif-badge">Dance party 🎉</span>
@@ -671,6 +674,28 @@
       const extra = Math.floor(Math.random() * 5) + 1; // 1–5 pasti
       targetCount += extra;
       animateToTarget(targetCount);
+    });
+
+    // Autoplay musica con fallback al primo click se il browser la blocca
+    window.addEventListener('load', function () {
+      const m = document.getElementById('bgmusic');
+      if (!m) return;
+
+      const tryPlay = () => {
+        const playPromise = m.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // se bloccato, parte al primo click
+            const onceClick = () => {
+              m.play().catch(() => {});
+              document.removeEventListener('click', onceClick);
+            };
+            document.addEventListener('click', onceClick);
+          });
+        }
+      };
+
+      tryPlay();
     });
   </script>
 </body>
